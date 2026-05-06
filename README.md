@@ -112,6 +112,17 @@ When relevant, inspect CPU/GPU utilization, memory/VRAM, I/O wait, throughput, l
 - Use `logs/` for local runtime logs when the application writes diagnostic files.
 - Tiny self-evident edits can skip task notes.
 
+## Documentation Discipline
+
+Sub-Powers is intentionally file-light.
+
+- Do not create files for intermediate reasoning, debug context, performance snapshots, review notes, verification reports, or tool outputs by default.
+- Keep intermediate debug and performance information in the chat, or provide commands the user can run in their own terminal.
+- Use `README.md` for public project docs.
+- Use `docs/design.md` only for durable design.
+- Use `docs/tasks/YYYY-MM-DD-HHMM-<topic>.md` only after meaningful final code changes.
+- Future MCP tools should return structured output by default and write files only when explicitly requested or when the chosen action is task-note creation.
+
 ## MCP Status
 
 Sub-Powers is not an MCP server today.
@@ -124,7 +135,7 @@ sub-powers-* skills -> execution discipline
 tools/plugins/shell/tests/logs -> concrete actions
 ```
 
-Future MCP tools can be added for deterministic actions such as creating task notes, collecting debug context, running benchmarks, or generating verification reports.
+Future MCP tools can be added for deterministic actions such as collecting debug context, running benchmarks, running verification, or creating task notes. They should be lazy, gate-scoped, and file-light.
 
 ## Status
 

@@ -36,3 +36,5 @@ read error -> reproduce -> narrow scope -> inspect logs/docs/task notes -> root 
 - If a broader issue is discovered, record it as a follow-up instead of silently expanding scope.
 - Add targeted logs or debug points only where they reduce uncertainty.
 - If multiple failures are independent, they may be investigated in parallel; otherwise debug from the primary failure.
+- Show debug context in chat; do not create debug report files by default.
+- Write a task note only after a meaningful bug-fix code change, not during investigation.

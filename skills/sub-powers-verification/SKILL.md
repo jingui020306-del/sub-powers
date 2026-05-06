@@ -36,3 +36,4 @@ Completion requires evidence, not confidence.
 - Verify against the original success signal, not just the last edit.
 - Do not claim full completion after partial verification.
 - Do not claim fixed or passing when verification did not run or failed.
+- Report verification in chat by default; do not create verification report files unless explicitly requested.

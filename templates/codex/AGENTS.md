@@ -38,4 +38,15 @@ Sub-Powers is a workflow and skill layer, not an MCP server.
 - Use browser tooling for UI journeys when available.
 - Use GitHub tooling only for GitHub/PR state.
 - Use shell/tests/logs/files for local debugging and verification.
-- Add MCP tools later only for deterministic actions such as creating task notes, collecting logs, running benchmarks, or generating verification reports.
+- Add MCP tools later only for deterministic actions such as collecting context, running verification, measuring performance, or creating task notes.
+- MCP/tools are lazy and gate-scoped; do not trigger every tool just because an entrypoint starts.
+- MCP/tools should return structured output by default and write files only when explicitly requested or when the selected action is task-note creation.
+
+## Documentation Discipline
+
+- Default: do not create files for intermediate reasoning, debug context, performance snapshots, review notes, verification reports, or tool outputs.
+- Allowed persistent files: `README.md`, `docs/design.md`, and `docs/tasks/YYYY-MM-DD-HHMM-<topic>.md`.
+- Write `docs/design.md` only for durable design: 0-to-1, architecture, data contracts, algorithm/index/retrieval systems, or cross-module workflows.
+- Write `docs/tasks/*` only after meaningful final code changes.
+- Skip task notes for formatting, copy/style tweaks, tiny self-evident edits, no-behavior changes, or when the note would be longer than the change.
+- Show debug context and performance snapshots in chat or via commands; do not save them by default.

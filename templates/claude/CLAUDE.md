@@ -80,3 +80,12 @@ read error -> reproduce -> narrow scope -> inspect logs/docs/task notes -> root 
 - Config/deploy: run dry-run, status, validation, or health check when available.
 - Report command/workflow/artifact checked, passed, failed, not verified, and confidence level.
 - Do not claim full completion after partial verification.
+
+## Documentation Discipline
+
+- Default: do not create files for intermediate reasoning, debug context, performance snapshots, review notes, verification reports, or tool outputs.
+- Allowed persistent files: `README.md`, `docs/design.md`, and `docs/tasks/YYYY-MM-DD-HHMM-<topic>.md`.
+- Write `docs/design.md` only for durable design: 0-to-1, architecture, data contracts, algorithm/index/retrieval systems, or cross-module workflows.
+- Write `docs/tasks/*` only after meaningful final code changes.
+- Skip task notes for formatting, copy/style tweaks, tiny self-evident edits, no-behavior changes, or when the note would be longer than the change.
+- Show debug context and performance snapshots in chat or via commands; do not save them by default.

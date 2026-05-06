@@ -24,6 +24,8 @@ Correctness comes before speed.
 - Measurement limits.
 - Remaining bottlenecks.
 
+Show metrics in chat or provide commands for the user to run. Do not write performance snapshot files by default.
+
 ## Inspect When Relevant
 
 - CPU/GPU utilization.
@@ -47,3 +49,5 @@ Correctness comes before speed.
 - Use focused tests when optimization changes algorithm behavior, ordering, edge cases, or data contracts.
 - Prefer simple algorithm/index/data-structure improvements before complex rewrites.
 - Do not mix optimization with unrelated cleanup, redesign, dependency upgrades, or behavior changes.
+- Mandatory confirmation gate: report current metrics and 1-3 optimization options first, then wait for user confirmation before changing code.
+- Write a task note only after a meaningful performance code change, not during measurement.
