@@ -1,59 +1,50 @@
 # Sub-Powers
 
-Sub-Powers is a lightweight engineering workflow for AI coding agents. It is designed for people who want the discipline of Superpowers without turning every change into a heavyweight process.
+Sub-Powers is a boundary-first engineering workflow for AI coding agents.
 
-It works best for Python-first engineering, full-stack product work, debugging existing repositories, and algorithm/performance work where correctness, logs, tests, and resource measurements matter.
+It is built for people who want AI agents to be useful in real repositories without over-planning every small change or silently expanding scope during debugging, refactoring, performance work, and review.
 
-## What It Does
+## Core Idea
 
-Sub-Powers separates two things that are often mixed together:
+Sub-Powers separates routing from execution:
 
-- **Routing and boundaries**: what kind of task is this, and how far may the agent go?
-- **Execution discipline**: how should the agent code, debug, test, review, optimize, and verify?
+- `AGENTS.md` or `CLAUDE.md` chooses the entrypoint.
+- `sub-powers-*` skills hold the execution discipline.
+- Tools and MCP are optional implementation details, not the workflow itself.
 
-The result is a smaller, sharper workflow:
+This gives you multiple clear entrypoints instead of one giant agent.
 
-- Full 0-to-1 workflow only when there is a real new product, architecture, data-contract, algorithm, or cross-module boundary.
-- Existing-code work stays small: small feature, debug, build, E2E, code quality, performance, review, or verification.
-- Debugging starts from evidence and root cause, not guesses.
-- Performance work starts from measurement, CPU/GPU/resource use, and correctness protection.
-- Review is risk checking, not rewriting.
-- Completion requires fresh verification evidence.
+## Skills
+
+```text
+skills/
+├── sub-powers-boundary/       # 0-to-1 boundary and design clarification
+├── sub-powers-planning/       # spec, worktree, planning, task decomposition
+├── sub-powers-coding/         # small features and coding discipline
+├── sub-powers-debugging/      # evidence-first root cause debugging
+├── sub-powers-quality/        # behavior-preserving refactor and cleanup
+├── sub-powers-performance/    # measurement-first optimization
+├── sub-powers-review/         # risk-focused review
+└── sub-powers-verification/   # completion evidence gate
+```
 
 ## Why Not Just ECC Or Plain Superpowers?
 
-ECC-style agent bundles can be powerful, but they often bring many agents, broad triggers, and overlapping responsibilities. That can be useful for large organizations, but it can also make everyday coding noisy.
+ECC-style bundles can bring many agents and overlapping responsibilities. That can be powerful, but it can also make normal coding noisy.
 
-Plain Superpowers gives strong process skills, but its default boundaries can be too broad for daily work in existing repositories.
+Plain Superpowers has strong process skills, but its default triggers can be too broad for everyday existing-code work.
 
-Sub-Powers keeps the useful parts and tightens the edges:
+Sub-Powers keeps the useful discipline and tightens the boundaries:
 
 | Area | ECC-style bundles | Plain Superpowers | Sub-Powers |
 | --- | --- | --- | --- |
-| Daily small changes | Can over-route into many agents | Can over-trigger design/planning | Small Feature path stays light |
-| Debugging | Depends on agent choice | Strong root-cause skill | Root cause plus strict boundary discipline |
-| Refactor | May become broad rewrite | Good if invoked carefully | Behavior-preserving Code Quality path |
-| Performance | Often generic | Debug-oriented | Adds CPU/GPU, VRAM, I/O, batching, indexing, benchmark reproducibility |
-| Completion | Varies | Strong verification skill | Verification mapped by task type |
-| Token use | Can be high | Medium/high if every skill triggers | AGENTS is routing, details live in one local skill |
-| Boundary control | Agent dependent | Skill dependent | Explicit no-silent-expansion rules |
-
-## Repository Layout
-
-```text
-sub-powers/
-├── skills/
-│   └── sub-powers-engineering/
-│       └── SKILL.md
-├── templates/
-│   ├── codex/
-│   │   └── AGENTS.md
-│   └── claude/
-│       └── CLAUDE.md
-├── docs/
-│   └── tasks/
-└── logs/
-```
+| Daily small changes | Can over-route | Can over-trigger design/planning | Uses `sub-powers-coding` |
+| Debugging | Agent-dependent | Strong root-cause skill | Uses `sub-powers-debugging` with strict boundary control |
+| Refactor | Can become rewrite | Good if scoped | Uses `sub-powers-quality` to preserve behavior |
+| Performance | Often generic | Debug-oriented | Uses `sub-powers-performance` with CPU/GPU, VRAM, I/O, batching, reproducibility |
+| Review | Varies | Strong if invoked | Uses `sub-powers-review` as risk check, not rewrite |
+| Completion | Varies | Strong verification | Uses `sub-powers-verification` as evidence gate |
+| Token use | Can be high | Can be broad | Router stays small; details load only by skill |
 
 ## Install For Codex
 
@@ -65,60 +56,40 @@ Quick install:
 
 Manual install:
 
-Copy the skill into your Codex skills directory:
-
 ```bash
-mkdir -p ~/.codex/skills/sub-powers-engineering
-cp skills/sub-powers-engineering/SKILL.md ~/.codex/skills/sub-powers-engineering/SKILL.md
-```
+for skill in skills/sub-powers-*; do
+  name="$(basename "$skill")"
+  mkdir -p "$HOME/.codex/skills/$name"
+  cp "$skill/SKILL.md" "$HOME/.codex/skills/$name/SKILL.md"
+done
 
-Copy the Codex project rule file into a repository:
-
-```bash
 cp templates/codex/AGENTS.md /path/to/your/repo/AGENTS.md
 ```
 
-Restart Codex so the new skill appears in the available skills list.
+Restart Codex so the skills appear in the available skills list.
 
 ## Install For Claude Code
 
-Copy the Claude template into a repository:
+Claude does not use Codex skills directly. Copy the Claude project memory:
 
 ```bash
 cp templates/claude/CLAUDE.md /path/to/your/repo/CLAUDE.md
 ```
 
-Claude does not use Codex skills directly, so the Claude template includes the key Sub-Powers rules inline.
+The Claude template mirrors the same entrypoint structure in one file.
 
-## Core Workflows
+## Entry Routing
 
-Sub-Powers routes work into one of these entrypoints:
-
-- **Full 0-to-1**: new systems, product surfaces, architectures, data contracts, algorithm/retrieval/indexing systems.
-- **Small Feature**: normal product/code increments inside existing modules.
-- **Debug**: bugs, failures, tracebacks, broken scripts, suspicious behavior.
-- **Build**: build/typecheck/install/dependency/migration/dev-server/service startup failures.
-- **Workflow Test**: whole-flow, page/API flow, smoke, integration, E2E validation.
-- **Code Quality**: cleanup, readability, duplication, defensive checks, local refactor.
-- **Performance**: algorithm, indexing, I/O, database, memory/VRAM, CPU/GPU, latency, throughput, batch bottlenecks.
+- **Boundary / 0-to-1**: new product, service, workflow, architecture, data contract, algorithm/retrieval/indexing system.
+- **Planning**: approved spec/design needs files, tasks, tests, commands, dependency order, worktree, or OpenSpec-style artifact.
+- **Coding**: small features and normal code increments.
+- **Debugging**: bugs, failures, tracebacks, broken scripts, build/startup failures.
+- **Quality**: cleanup, readability, duplication, local refactor, defensive checks.
+- **Performance**: CPU/GPU, memory/VRAM, I/O, database, indexing, throughput, latency, batch bottlenecks.
 - **Review**: risk check, quality inspection, safety check, merge readiness.
-- **Completion Verification**: proof before saying done, fixed, passing, ready, or safe.
-
-## Core Engineering Rules
-
-- Keep code concise and readable.
-- Each function should do one thing well.
-- Use clear names; avoid unconscious abbreviations.
-- Reduce unnecessary variables.
-- Reduce nesting with guard clauses, early returns, or small helpers when clearer.
-- Reuse existing helpers and patterns.
-- If similar logic appears more than twice, extract a reusable function or module with clear responsibility.
-- Validate external input, API responses, files, config, and runtime assumptions.
-- Handle exceptions explicitly and avoid silent failures.
+- **Verification**: proof before saying done, fixed, passing, ready, or safe.
 
 ## Debug Boundary
-
-Debugging follows:
 
 ```text
 read error -> reproduce -> narrow scope -> inspect logs/docs/task notes -> root cause -> minimal fix -> verify
@@ -128,24 +99,33 @@ The agent should not modify code outside the confirmed failure boundary unless e
 
 ## Performance Boundary
 
-Performance work starts with measurement:
-
 ```text
-baseline -> suspected hot path -> resource utilization -> measurement method -> correctness risk
+baseline -> suspected hot path -> resource utilization -> measurement method -> correctness risk -> after result
 ```
 
 When relevant, inspect CPU/GPU utilization, memory/VRAM, I/O wait, throughput, latency, batch size, algorithm complexity, data loading, preprocessing, serialization, CPU-GPU transfer, batching, caching, indexing, concurrency, and benchmark reproducibility.
 
 ## Traceability
 
-Use:
+- Use `docs/design.md` for durable architecture, data, workflow, algorithm, retrieval, indexing, or cross-module design.
+- Use `docs/tasks/YYYY-MM-DD-HHMM-<topic>.md` for meaningful behavior, bug, performance, API, data, algorithm, permission, or error-handling changes.
+- Use `logs/` for local runtime logs when the application writes diagnostic files.
+- Tiny self-evident edits can skip task notes.
 
-- `docs/design.md` for durable architecture, data, workflow, algorithm, retrieval, indexing, or cross-module design.
-- `docs/tasks/YYYY-MM-DD-HHMM-<topic>.md` for meaningful behavior, bug, performance, API, data, algorithm, permission, or error-handling changes.
-- `logs/` for local runtime logs when the application writes diagnostic files.
+## MCP Status
 
-Tiny self-evident edits can skip task notes.
+Sub-Powers is not an MCP server today.
+
+The current layer is:
+
+```text
+AGENTS.md / CLAUDE.md -> entrypoint routing
+sub-powers-* skills -> execution discipline
+tools/plugins/shell/tests/logs -> concrete actions
+```
+
+Future MCP tools can be added for deterministic actions such as creating task notes, collecting debug context, running benchmarks, or generating verification reports.
 
 ## Status
 
-Sub-Powers is intentionally small. It is not trying to replace every specialized agent. It is a boundary and execution layer for people who want AI coding agents to be more disciplined, less noisy, and easier to debug later.
+Sub-Powers is intentionally small and modular. It is not trying to replace every specialized agent. It is a workflow layer for making AI coding agents more disciplined, less noisy, and easier to debug later.

@@ -13,7 +13,7 @@ Sub-Powers is a boundary-first workflow layer for AI coding agents.
 ## Architecture
 
 - `templates/codex/AGENTS.md` routes Codex work into entrypoints and hard gates.
-- `skills/sub-powers-engineering/SKILL.md` contains Codex execution overlays.
+- `skills/sub-powers-*` contains modular Codex execution skills for each workflow branch.
 - `templates/claude/CLAUDE.md` carries the same practical rules for Claude-style project memory.
 - `docs/tasks/` is reserved for meaningful change notes.
 - `logs/` is reserved for local runtime logs when projects write diagnostic files.
@@ -22,6 +22,7 @@ Sub-Powers is a boundary-first workflow layer for AI coding agents.
 
 - Sub-Powers is not a large agent marketplace.
 - Sub-Powers is not a replacement for all specialized domain skills.
+- Sub-Powers is not an MCP server yet.
 - Sub-Powers does not force full planning, specs, or worktrees for small changes.
 
 ## Core Boundary
