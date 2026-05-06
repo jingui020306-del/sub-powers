@@ -1,0 +1,6 @@
+.DS_Store
+*.log
+logs/*
+!logs/.gitkeep
+docs/tasks/*
+!docs/tasks/.gitkeep
