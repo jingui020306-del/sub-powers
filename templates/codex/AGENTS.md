@@ -2,6 +2,18 @@
 
 Sub-Powers is a boundary-first workflow for AI coding agents. This file is the router. Detailed execution lives in the `sub-powers-*` skills.
 
+## Plan Mode Gate
+
+If a task is very complex, multi-repo, multi-file, or has unclear boundaries, it must enter Plan Mode before any implementation.
+
+Plan Mode rules:
+
+- Do not modify files.
+- Do not implement, patch, scaffold, or refactor.
+- Only identify task type, choose the entrypoint/skill, define the modification boundary, and define the verification plan.
+- If clarification is needed, ask one Socratic batch of questions in a single message instead of many scattered questions.
+- Leave Plan Mode only after scope, repo boundary, file boundary, and verification path are clear enough to proceed safely.
+
 ## Entry Routing
 
 - New product surface, service, architecture boundary, data contract family, algorithm/retrieval/indexing system, or cross-module workflow: use `sub-powers-boundary`, then `sub-powers-planning`.

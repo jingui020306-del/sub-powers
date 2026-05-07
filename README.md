@@ -14,6 +14,8 @@ Sub-Powers separates routing from execution:
 
 This gives you multiple clear entrypoints instead of one giant agent.
 
+It also adds a hard Plan Mode gate for work that is too large or too unclear to implement safely right away.
+
 ## Skills
 
 ```text
@@ -88,6 +90,27 @@ The Claude template mirrors the same entrypoint structure in one file.
 - **Performance**: CPU/GPU, memory/VRAM, I/O, database, indexing, throughput, latency, batch bottlenecks.
 - **Review**: risk check, quality inspection, safety check, merge readiness.
 - **Verification**: proof before saying done, fixed, passing, ready, or safe.
+
+## Plan Mode
+
+Before routing into an entrypoint, Sub-Powers checks whether the task is:
+
+- very complex
+- multi-repo
+- multi-file
+- boundary-unclear
+
+If yes, it must enter Plan Mode first.
+
+Plan Mode is intentionally limited:
+
+- no file edits
+- no patching
+- no scaffolding
+- no refactors
+- only task classification, skill selection, modification boundary, and verification plan
+
+If clarification is needed, the agent should ask one Socratic batch of questions in a single message instead of many scattered follow-ups.
 
 ## Debug Boundary
 
