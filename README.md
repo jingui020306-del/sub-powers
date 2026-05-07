@@ -93,14 +93,25 @@ The Claude template mirrors the same entrypoint structure in one file.
 
 ## Plan Mode
 
-Before routing into an entrypoint, Sub-Powers checks whether the task is:
+Before routing into an entrypoint, Sub-Powers checks whether:
 
-- very complex
-- multi-repo
-- multi-file
-- boundary-unclear
+- any hard trigger is true
+- or two or more soft triggers are true
 
-If yes, it must enter Plan Mode first.
+Hard triggers:
+
+- multi-repo work
+- unclear product/ownership/data/workflow/architecture boundary
+- unknown verification path
+- coordinated changes across independent subsystems
+
+Soft triggers:
+
+- many files likely to change
+- unusually complex task
+- unfamiliar repo context
+- unclear implementation order
+- multiple plausible entrypoints
 
 Plan Mode is intentionally limited:
 

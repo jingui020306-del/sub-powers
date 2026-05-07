@@ -4,7 +4,25 @@ Sub-Powers is a boundary-first workflow for AI coding agents. Claude does not lo
 
 ## Plan Mode Gate
 
-If a task is very complex, multi-repo, multi-file, or has unclear boundaries, it must enter Plan Mode before any implementation.
+Use Plan Mode before any implementation when either:
+
+- any hard trigger is true
+- two or more soft triggers are true
+
+Hard triggers:
+
+- multi-repo work
+- boundary is unclear at product, ownership, data, workflow, or architecture level
+- verification path is unknown
+- task requires coordinated changes across independent subsystems
+
+Soft triggers:
+
+- many files are likely to change
+- task is unusually complex
+- repo context is unfamiliar
+- implementation order is unclear
+- multiple plausible entrypoints could fit
 
 Plan Mode rules:
 
